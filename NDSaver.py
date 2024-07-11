@@ -4,6 +4,9 @@ import uuid
 import logging
 from datetime import datetime
 from neo4j import GraphDatabase
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class NDashboardSaver:
     """
@@ -105,25 +108,23 @@ class NDashboardSaver:
             self.logger.error('Failed to load JSON data from a file.', exc_info=True)
             raise e
 
-def main():
-    """
-    The main function to run the script. It connects to the Neo4j database,
-    loads JSON data from a specified file, and creates a node with that data.
-    """
-    # Initialize the DashboardSaver service
-    dashboard_saver = NDashboardSaver()
+    def init_save(self):
+        """
+        The main function to run the script. It connects to the Neo4j database,
+        loads JSON data from a specified file, and creates a node with that data.
+        """
+        # Load JSON data from the specified file
+        data = self.load_json()
 
-    # Load JSON data from the specified file
-    data = dashboard_saver.load_json()
+        # Label for the node
+        label = '_Neodash_Dashboard'
 
-    # Label for the node
-    label = '_Neodash_Dashboard'
+        # Create the node in the Neo4j database
+        self.create_node(label, data, self.user)
 
-    # Create the node in the Neo4j database
-    dashboard_saver.create_node(label, data, dashboard_saver.user)
-
-    # Close the DashboardSaver service connection
-    dashboard_saver.close()
+        # Close the DashboardSaver service connection
+        self.close()
 
 if __name__ == "__main__":
-    main()
+    dashboard_saver = NDashboardSaver()
+    dashboard_saver.init_save()
