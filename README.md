@@ -36,9 +36,13 @@ DASHBOARD_PATH=path/to/dashboard.json
 
 ## 🔗 Useful Links
 
-* NeoDash
-* Neo4j
+* [NeoDash](https://github.com/neo4j-labs/neodash)
+* [Neo4j ](https://neo4j.com/)
 
 With `NDashboardSaver`, deploying your NeoDash dashboards to production is now a breeze
 
 A Python class designed to streamline the process of saving NeoDash dashboards in Neo4j simplifying the automation of deploying dashboards to production environments.
+
+## 🖼️Gallery Examples
+
+The dashboard example featured in the gallery is sourced from the Neodash repository. All credit for the gallery content goes to the developers and contributors of Neodash.
