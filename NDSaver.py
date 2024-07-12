@@ -59,7 +59,9 @@ class NDashboardSaver:
         try:
             with self._driver.session() as session:
                 node_id = session.execute_write(self._create_node, label, data, user)
-                self.logger.info(f'Node created:\n {node_id}')
+                node = json.loads(node_id)
+
+                self.logger.info(f'Node created with title: {node.get("title")}')
                 return node_id
         except Exception as e:
             self.logger.error('Failed to create a node in the Neo4j database.', exc_info=True)
@@ -85,7 +87,7 @@ class NDashboardSaver:
         version = data.get('version', '')
         content = json.dumps(data)
         query = (
-            f"CREATE (a:{label} {{date: $date, title: $title, user: $user, uuid: $uuid, version: $version}}) "
+            f"CREATE (a:{label} {{content: $content, date: $date, title: $title, user: $user, uuid: $uuid, version: $version}}) "
             "RETURN a"
         )
         result = tx.run(query, content=content, date=date, title=title, user=user, uuid=uuid_str, version=version)
