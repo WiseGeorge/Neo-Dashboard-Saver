@@ -126,7 +126,3 @@ class NDashboardSaver:
 
         # Close the DashboardSaver service connection
         self.close()
-
-if __name__ == "__main__":
-    dashboard_saver = NDashboardSaver()
-    dashboard_saver.init_save()
